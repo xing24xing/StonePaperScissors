@@ -1,7 +1,7 @@
 let userScore = 0;
 let computerScore = 0;
 let timer;
-let timeLeft = 40;
+let timeLeft = 20;
 let gameStarted = false;
 
 const choices = document.querySelectorAll(".choice");
@@ -93,7 +93,7 @@ const resetGame = () => {
 	computerScorePara.innerText = computerScore;
 	msg.innerText = "Play your move";
 	msg.style.backgroundColor = "#081b21";
-	timeLeft = 40;
+	timeLeft = 20;
 	timerElement.innerText = timeLeft;
 	gameStarted = false;
 }
