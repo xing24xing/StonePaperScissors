@@ -1,72 +1,61 @@
-let userscore = 0;
-let computerscore = 0;
-const choise = document.querySelectorAll(".choise");
-const  msg = document.querySelector("#msg");
-const userscorepara = document.querySelector('#user-score');
-const computerscorepara = document.querySelector('#comp-score');
+let userScore = 0;
+let computerScore = 0;
+const choices = document.querySelectorAll(".choice");
+const msg = document.querySelector("#msg");
+const userScorePara = document.querySelector('#user-score');
+const computerScorePara = document.querySelector('#comp-score');
 
-const gencompchoise = () =>{
-	const opt = ["Rock" ,"Paper" ,"Scissors"];
+const genCompChoice = () => {
+	const options = ["Rock", "Paper", "Scissors"];
 	const random = Math.floor(Math.random() * 3);
-	return opt[random];
-}
-const drawgame =() =>{
-	console.log("Draw")
-	msg.innerText="The Game Was Draw!"
-	msg.style.backgroundColor="#081b31";
+	return options[random];
 }
 
-const showwinner =(userwin,userchoise,compchoise) =>{
-if(userwin)
-{
-	userscore++;
-	userscorepara.innerText = userscore;
-	msg.innerHTML = `You Win! Your ${userchoise} beats ${compchoise}`;
-	console.log("you win");
-	msg.style.backgroundColor="green";
-}
-else{
-	computerscore++;
-	computerscorepara.innerText = computerscore;
-	msg.innerHTML=`You Loss! ${compchoise} Beats Your ${userchoise}`;
-	console.log("you loss");
-	msg.style.backgroundColor="red";
+const drawGame = () => {
+	console.log("Draw");
+	msg.innerText = "The Game Was Draw!";
+	msg.style.backgroundColor = "#081b31";
 }
 
+const showWinner = (userWin, userChoice, compChoice) => {
+	if (userWin) {
+		userScore++;
+		userScorePara.innerText = userScore;
+		msg.innerHTML = `You Win! Your ${userChoice} beats ${compChoice}`;
+		console.log("You win");
+		msg.style.backgroundColor = "green";
+	} else {
+		computerScore++;
+		computerScorePara.innerText = computerScore;
+		msg.innerHTML = `You Lose! ${compChoice} Beats Your ${userChoice}`;
+		console.log("You lose");
+		msg.style.backgroundColor = "red";
+	}
 }
 
-const playgame = (userchoise) =>{
-  console.log("Your Choise",userchoise);
-  const compchoise = gencompchoise();
-  console.log("computer choise",compchoise);
-  if(userchoise == compchoise)
-  {
-   drawgame();
-  }
-  else
-  {
-  	let userwin = true;
-  	if(userchoise == "Rock")
-  	{
-  		userwin = compchoise == "Paper" ? false:true;
-  	}
-  	else if(userchoise == "Paper")
-  	{
-  		userwin = compchoise == "Scissors" ? false:true;
-  	}
-  	else
-  	{
-  		userwin= compchoise == "Rock" ? false:true;
-  	}
-  	showwinner(userwin,userchoise,compchoise);
-  }
+const playGame = (userChoice) => {
+	console.log("Your Choice", userChoice);
+	const compChoice = genCompChoice();
+	console.log("Computer Choice", compChoice);
+	if (userChoice == compChoice) {
+		drawGame();
+	} else {
+		let userWin = true;
+		if (userChoice == "Rock") {
+			userWin = compChoice == "Paper" ? false : true;
+		} else if (userChoice == "Paper") {
+			userWin = compChoice == "Scissors" ? false : true;
+		} else {
+			userWin = compChoice == "Rock" ? false : true;
+		}
+		showWinner(userWin, userChoice, compChoice);
+	}
 }
 
-choise.forEach((choise) =>{
-	console.log(choise);
-	choise.addEventListener("click",()=>{
-	const userchoise = choise.getAttribute('id');
-      playgame(userchoise)
-	})
-})
-
+choices.forEach((choice) => {
+	console.log(choice);
+	choice.addEventListener("click", () => {
+		const userChoice = choice.getAttribute('id');
+		playGame(userChoice);
+	});
+});
