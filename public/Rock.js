@@ -2,6 +2,8 @@ let userScore = 0;
 let computerScore = 0;
 let timer;
 let timeLeft = 40;
+let gameStarted = false;
+
 const choices = document.querySelectorAll(".choice");
 const msg = document.querySelector("#msg");
 const userScorePara = document.querySelector('#user-score');
@@ -93,9 +95,15 @@ const resetGame = () => {
 	msg.style.backgroundColor = "#081b21";
 	timeLeft = 40;
 	timerElement.innerText = timeLeft;
+	gameStarted = false;
 }
 
 const game = (userChoice) => {
+	if (!gameStarted) {
+		msg.innerHTML = "Please start the game first!";
+		msg.style.backgroundColor = "#f0ad4e";
+		return;
+	}
 	const computerChoice = genCompChoice();
 	console.log(userChoice);
 	console.log(computerChoice);
@@ -117,7 +125,11 @@ choices.forEach(choice => {
 
 startBtn.addEventListener("click", () => {
 	resetGame();
+	gameStarted = true;
 	startTimer();
 });
 
-stopBtn.addEventListener("click", stopTimer);
+stopBtn.addEventListener("click", () => {
+	stopTimer();
+	gameStarted = false;
+});
