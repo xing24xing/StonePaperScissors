@@ -9,6 +9,13 @@
 </head>
 <body>
 	<h1>Rock Paper Scissors Game</h1>
+	<div class="timer-container">
+		<p>Time left: <span id="timer" class="timer">40</span>s</p>
+	</div>
+	<div class="buttons-container">
+		<button id="start-btn" class="control-btn"><i class="fas fa-play"></i> Start</button>
+		<button id="stop-btn" class="control-btn"><i class="fas fa-stop"></i> Stop</button>
+	</div>
 	<div class="choices">
 		<div class="choice" id="Rock">
 			<img src="ro.png" alt="Rock">
@@ -33,13 +40,7 @@
 	<div class="msg-container">
 		<p id="msg">Play your move</p>
 	</div>
-	<div class="timer-container">
-		<p>Time left: <span id="timer" class="timer">40</span>s</p>
-	</div>
-	<div class="buttons-container">
-		<button id="start-btn" class="control-btn"><i class="fas fa-play"></i> Start</button>
-		<button id="stop-btn" class="control-btn"><i class="fas fa-stop"></i> Stop</button>
-	</div>
+	
 	<div id="congrats" class="congrats">
 		<h2>Congratulations!</h2>
 		<p id="winner-msg"></p>

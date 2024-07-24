@@ -72,17 +72,17 @@ img {
 }
 
 #user-score, #comp-score {
-	font-size: 4rem;
+	font-size: 2rem;
 }
 
 .msg-container {
-	margin-top: 5rem;
+	margin-top: 3rem;
 }
 
 #msg {
 	background-color: #081b21;
 	color: #ffffff;
-	font-size: 2rem;
+	font-size: 1rem;
 	display: inline-block;
 	padding: 1rem;
 	border-radius: 1rem;
