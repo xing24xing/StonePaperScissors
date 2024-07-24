@@ -1,9 +1,32 @@
 let userScore = 0;
 let computerScore = 0;
+let timer;
+let timeLeft = 40;
 const choices = document.querySelectorAll(".choice");
 const msg = document.querySelector("#msg");
 const userScorePara = document.querySelector('#user-score');
 const computerScorePara = document.querySelector('#comp-score');
+const congrats = document.querySelector("#congrats");
+const winnerMsg = document.querySelector("#winner-msg");
+const timerElement = document.querySelector("#timer");
+const startBtn = document.querySelector("#start-btn");
+const stopBtn = document.querySelector("#stop-btn");
+
+const startTimer = () => {
+	timer = setInterval(() => {
+		timeLeft--;
+		timerElement.innerText = timeLeft;
+		if (timeLeft <= 0) {
+			clearInterval(timer);
+			displayCongrats(false, true);
+			resetGame();
+		}
+	}, 1000);
+}
+
+const stopTimer = () => {
+	clearInterval(timer);
+}
 
 const genCompChoice = () => {
 	const options = ["Rock", "Paper", "Scissors"];
@@ -31,31 +54,70 @@ const showWinner = (userWin, userChoice, compChoice) => {
 		console.log("You lose");
 		msg.style.backgroundColor = "red";
 	}
+	checkOverallWinner();
 }
 
-const playGame = (userChoice) => {
-	console.log("Your Choice", userChoice);
-	const compChoice = genCompChoice();
-	console.log("Computer Choice", compChoice);
-	if (userChoice == compChoice) {
-		drawGame();
-	} else {
-		let userWin = true;
-		if (userChoice == "Rock") {
-			userWin = compChoice == "Paper" ? false : true;
-		} else if (userChoice == "Paper") {
-			userWin = compChoice == "Scissors" ? false : true;
-		} else {
-			userWin = compChoice == "Rock" ? false : true;
-		}
-		showWinner(userWin, userChoice, compChoice);
+const checkOverallWinner = () => {
+	if (userScore === 10) {
+		stopTimer();
+		displayCongrats(true, false);
+		resetGame();
+	} else if (computerScore === 10) {
+		stopTimer();
+		displayCongrats(false, false);
+		resetGame();
 	}
 }
 
-choices.forEach((choice) => {
-	console.log(choice);
+const displayCongrats = (userWon, timeUp) => {
+	if (timeUp) {
+		winnerMsg.innerHTML = "😢 Time's up! Computer wins! Try next time to win! 😢";
+	} else if (userWon) {
+		winnerMsg.innerHTML = "😊 Congratulations! You are the overall winner! 😊";
+	} else {
+		winnerMsg.innerHTML = "😢 Computer is the overall winner! Try next time to win! 😢";
+	}
+	congrats.style.display = "flex";
+	setTimeout(() => {
+		congrats.style.display = "none";
+	}, 5000);
+}
+
+const resetGame = () => {
+	stopTimer();
+	userScore = 0;
+	computerScore = 0;
+	userScorePara.innerText = userScore;
+	computerScorePara.innerText = computerScore;
+	msg.innerText = "Play your move";
+	msg.style.backgroundColor = "#081b21";
+	timeLeft = 40;
+	timerElement.innerText = timeLeft;
+}
+
+const game = (userChoice) => {
+	const computerChoice = genCompChoice();
+	console.log(userChoice);
+	console.log(computerChoice);
+	if (userChoice === computerChoice) {
+		drawGame();
+	} else {
+		const result = (userChoice === "Rock" && computerChoice === "Scissors") ||
+			(userChoice === "Paper" && computerChoice === "Rock") ||
+			(userChoice === "Scissors" && computerChoice === "Paper");
+		showWinner(result, userChoice, computerChoice);
+	}
+}
+
+choices.forEach(choice => {
 	choice.addEventListener("click", () => {
-		const userChoice = choice.getAttribute('id');
-		playGame(userChoice);
+		game(choice.id);
 	});
 });
+
+startBtn.addEventListener("click", () => {
+	resetGame();
+	startTimer();
+});
+
+stopBtn.addEventListener("click", stopTimer);

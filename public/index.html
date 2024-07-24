@@ -5,6 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Rock Paper Scissors Game</title>
 	<link rel="stylesheet" type="text/css" href="Rock.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
 	<h1>Rock Paper Scissors Game</h1>
@@ -31,6 +32,17 @@
 	</div>
 	<div class="msg-container">
 		<p id="msg">Play your move</p>
+	</div>
+	<div class="timer-container">
+		<p>Time left: <span id="timer" class="timer">40</span>s</p>
+	</div>
+	<div class="buttons-container">
+		<button id="start-btn" class="control-btn"><i class="fas fa-play"></i> Start</button>
+		<button id="stop-btn" class="control-btn"><i class="fas fa-stop"></i> Stop</button>
+	</div>
+	<div id="congrats" class="congrats">
+		<h2>Congratulations!</h2>
+		<p id="winner-msg"></p>
 	</div>
 	<script type="text/javascript" src="Rock.js"></script>
 </body>
